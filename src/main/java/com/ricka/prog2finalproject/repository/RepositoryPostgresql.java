@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepositoryPostgresql<T> extends RepositoryPostgresqlConf<T> implements Repository<T>{
-    final private Connection connection;
+    final protected Connection connection;
     protected RepositoryPostgresql(Connection connection,Class<T> type){
         super(type);
         this.connection = connection;

@@ -7,9 +7,7 @@ import java.sql.Connection;
 
 @Repository
 public class TaskRepository extends RepositoryPostgresql<Task> {
-    private Connection connection;
     public TaskRepository(Connection connection) {
         super(connection,Task.class);
-        this.connection = connection;
     }
 }
