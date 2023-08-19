@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 
 @Repository
-public class IncludeRepository extends RepositoryPostgresql<Include> {
+public class IncludeRepository extends BasicRepositoryPostgresql<Include> {
     public IncludeRepository(Connection connection) {
         super(connection,Include.class);
     }

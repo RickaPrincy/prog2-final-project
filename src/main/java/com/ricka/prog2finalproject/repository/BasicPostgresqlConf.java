@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-public class RepositoryPostgresqlConf<T>{
+public class BasicPostgresqlConf<T>{
     final private Class<T> type;
 
     /**
@@ -19,7 +19,7 @@ public class RepositoryPostgresqlConf<T>{
      * @param args : parameters that should be used in the all-args constructor
      * @return new instance
      */
-    protected T createInstance(Object ...args){
+    protected T createInstance(Object ...args) throws SQLException{
         Constructor<T> ctr = (Constructor<T>) this.type.getDeclaredConstructors()[0];
         try {
             return ctr.newInstance(args);
@@ -29,8 +29,8 @@ public class RepositoryPostgresqlConf<T>{
                 InvocationTargetException error
         ) {
             System.out.println(error.getMessage());
+            throw new SQLException("Error when try to create an instance");
         }
-        return null;
     }
 
     /**
@@ -49,14 +49,10 @@ public class RepositoryPostgresqlConf<T>{
      * @param resultSet The ResultSet containing the values.
      * @return An array containing all values as objects.
      */
-    protected Object[] getObjectValues(int columnCount, ResultSet resultSet){
+    protected Object[] getObjectValues(int columnCount, ResultSet resultSet) throws SQLException {
         final List<Object> listOfArgs = new ArrayList<>();
         for(int i = 1; i<= columnCount; i++){
-            try {
-                listOfArgs.add(resultSet.getObject(i));
-            } catch (SQLException error) {
-                System.out.println(error.getMessage());
-            }
+            listOfArgs.add(resultSet.getObject(i));
         }
         return listOfArgs.toArray();
     }

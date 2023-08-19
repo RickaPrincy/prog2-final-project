@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 
 @Repository
-public class TagRepository extends RepositoryPostgresql<Tag> {
+public class TagRepository extends BasicRepositoryPostgresql<Tag> {
     public TagRepository(Connection connection) {
         super(connection,Tag.class);
     }

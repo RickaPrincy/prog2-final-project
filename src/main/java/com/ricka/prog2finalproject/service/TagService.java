@@ -5,6 +5,7 @@ import com.ricka.prog2finalproject.repository.TagRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -12,6 +13,10 @@ import java.util.List;
 public class TagService {
     private TagRepository tagRepository;
     public List<Tag> getAllTags(){
-        return this.tagRepository.getAll();
+        try {
+            return this.tagRepository.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

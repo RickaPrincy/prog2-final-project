@@ -3,6 +3,7 @@ package com.ricka.prog2finalproject.controller;
 import com.ricka.prog2finalproject.model.Include;
 import com.ricka.prog2finalproject.service.IncludeService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ public class IncludeController {
     private IncludeService includeService;
 
     @GetMapping("/includes")
-    public List<Include> getAllIncludes(){
+    public ResponseEntity<List<Include>> getAllIncludes(){
         return this.includeService.getAllIncludes();
     }
 }

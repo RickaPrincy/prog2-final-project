@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 
 @Repository
-public class ProjectRepository extends RepositoryPostgresql<Project> {
+public class ProjectRepository extends BasicRepositoryPostgresql<Project> {
     public ProjectRepository(Connection connection) {
         super(connection,Project.class);
     }

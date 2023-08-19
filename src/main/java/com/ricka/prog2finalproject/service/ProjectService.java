@@ -5,6 +5,7 @@ import com.ricka.prog2finalproject.repository.ProjectRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -13,6 +14,10 @@ public class ProjectService {
     private ProjectRepository projectRepository;
 
     public List<Project> getAllProjects(){
-        return this.projectRepository.getAll();
+        try {
+            return this.projectRepository.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

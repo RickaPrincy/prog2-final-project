@@ -5,6 +5,7 @@ import com.ricka.prog2finalproject.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -13,6 +14,10 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     public List<Task> getAllTasks(){
-        return this.taskRepository.getAll();
+        try {
+            return this.taskRepository.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
