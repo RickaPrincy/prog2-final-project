@@ -1,7 +1,7 @@
 package com.ricka.prog2finalproject.service;
 
-import com.ricka.prog2finalproject.model.Task;
-import com.ricka.prog2finalproject.repository.TaskRepository;
+import com.ricka.prog2finalproject.model.Tag;
+import com.ricka.prog2finalproject.repository.TagRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +10,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class TagService {
-    private TaskRepository taskRepository;
-    public List<Task> getAllTasks(){
-        return this.taskRepository.getAll();
+    private TagRepository tagRepository;
+    public List<Tag> getAllTags(){
+        return this.tagRepository.getAll();
     }
 }
