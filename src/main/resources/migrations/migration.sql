@@ -34,7 +34,7 @@ create table "task"(
   endDate Date not null,
   priority int not null default 1 check (priority >= 1),
   userId int references "user"(id) not null,
-  projectId int references "project"(id),
+  projectId int references "project"(id) not null,
   tagId int references "tag"(id) not null
 );
 

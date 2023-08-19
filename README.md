@@ -3,5 +3,5 @@ RPM is a simple API project manager for basic usage. In the future (perhaps), th
 
 # Getting Started
 
-- Create the database using the [migration file](./migration.sql).
+- Create the database using the [migration file](src/main/resources/migrations/migration.sql).
 - That's it! You are now able to run the server.
