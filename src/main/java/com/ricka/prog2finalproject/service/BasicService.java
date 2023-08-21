@@ -26,4 +26,13 @@ public class BasicService<T> {
             return ResponseError.InternalServerError(response, error);
         }
     }
+
+    public T deleteById(HttpServletResponse response, Integer id){
+        try {
+            T result = this.repository.deleteById(id);
+            return ResponseError.isNotFound(response,result);
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response, error);
+        }
+    }
 }

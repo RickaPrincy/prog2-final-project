@@ -46,8 +46,7 @@ public class BasicPostgresqlConf<T>{
     /**
      * Returns an array containing all values of a single row from the resultSet.
      * This array can be used with the createInstance("the array here") method.
-     * @param columnCount The number of columns in the table.
-     * @param resultSet The ResultSet containing the values.
+     * @param resultQuery Object which contain the resultSet and the columnAccount.
      * @return An array containing all values as objects.
      */
     protected Object[] getObjectValues(ResultQuery resultQuery) throws SQLException {
@@ -58,11 +57,10 @@ public class BasicPostgresqlConf<T>{
         return listOfArgs.toArray();
     }
 
-    protected ResultQuery getResult(Connection connection, String sql) throws SQLException {
+    protected ResultQuery getResultByQuery(Connection connection, String sql) throws SQLException {
         final ResultSet result = connection.prepareStatement(sql).executeQuery();
         final int columnCount = result.getMetaData().getColumnCount();
         return new ResultQuery(result,columnCount);
     }
-
 }
 

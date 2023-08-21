@@ -16,7 +16,7 @@ public class BasicRepositoryPostgresql<T> extends BasicPostgresqlConf<T> impleme
     public List<T> getAll() throws SQLException{
         final String sql = "SELECT * FROM " + this.getTableName();
         final List<T> finalResult = new ArrayList<>();
-        ResultQuery resultQuery = this.getResult(this.connection,sql);
+        ResultQuery resultQuery = this.getResultByQuery(this.connection,sql);
         while(resultQuery.getResultSet().next()){
             Object[] args = this.getObjectValues(resultQuery);
             finalResult.add( this.createInstance(args));
@@ -27,10 +27,25 @@ public class BasicRepositoryPostgresql<T> extends BasicPostgresqlConf<T> impleme
     @Override
     public T getById(Integer id) throws SQLException {
         final String sql = "SELECT * FROM " + this.getTableName() + " WHERE id = " + id;
-        ResultQuery resultQuery = this.getResult(this.connection,sql);
+        ResultQuery resultQuery = this.getResultByQuery(this.connection,sql);
+
         if(resultQuery.getResultSet().next()){
             Object[] args = this.getObjectValues(resultQuery);
             return this.createInstance(args);
+        }
+        return null;
+    }
+    @Override
+    public T deleteById(Integer id) throws SQLException {
+        String sql = "SELECT * FROM " + this.getTableName() + " WHERE id = " + id;
+        ResultQuery resultQuery = this.getResultByQuery(connection,sql);
+
+        if(resultQuery.getResultSet().next()){
+            Object[] args = this.getObjectValues(resultQuery);
+            T objectAffected = this.createInstance(args);
+            String sqlToDelete = "DELETE FROM " + this.getTableName() + " WHERE id = " + id;
+            connection.prepareStatement(sqlToDelete).executeUpdate();
+            return  objectAffected ;
         }
         return null;
     }

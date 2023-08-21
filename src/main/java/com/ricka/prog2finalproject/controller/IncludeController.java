@@ -5,6 +5,7 @@ import com.ricka.prog2finalproject.service.IncludeService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,5 +25,10 @@ public class IncludeController {
     @GetMapping("/include/{id}")
     public Include getIncludeById (HttpServletResponse response, @PathVariable Integer id){
         return this.includeService.getById(response,id);
+    }
+
+    @DeleteMapping("/include/{id}")
+    public Include deleteIncludeById(HttpServletResponse response,@PathVariable Integer id){
+        return this.includeService.deleteById(response,id);
     }
 }
