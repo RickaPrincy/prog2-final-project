@@ -17,9 +17,8 @@ public class ProjectService {
     public List<Project> getAllProjects(HttpServletResponse response){
         try {
             return this.projectRepository.getAll();
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return null;
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response, error);
         }
     }
 }

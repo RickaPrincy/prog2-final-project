@@ -17,9 +17,8 @@ public class TaskService {
     public List<Task> getAllTasks(HttpServletResponse response){
         try {
             return this.taskRepository.getAll();
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return null;
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response,error);
         }
     }
 }

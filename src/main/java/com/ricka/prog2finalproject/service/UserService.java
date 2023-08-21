@@ -17,9 +17,8 @@ public class UserService {
     public List<User> getAllUsers(HttpServletResponse response){
         try {
             return this.userRepository.getAll();
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return null;
+        } catch (SQLException error) {
+            return  ResponseError.InternalServerError(response,error);
         }
     }
 }

@@ -16,9 +16,8 @@ public class TagService {
     public List<Tag> getAllTags(HttpServletResponse response){
         try {
             return this.tagRepository.getAll();
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return null;
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response,error);
         }
     }
 }
