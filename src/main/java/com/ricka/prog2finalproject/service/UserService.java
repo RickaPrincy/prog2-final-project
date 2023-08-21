@@ -2,6 +2,7 @@ package com.ricka.prog2finalproject.service;
 
 import com.ricka.prog2finalproject.model.User;
 import com.ricka.prog2finalproject.repository.UserRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,12 @@ import java.util.List;
 public class UserService {
     private UserRepository userRepository;
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers(HttpServletResponse response){
         try {
             return this.userRepository.getAll();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return null;
         }
     }
 }

@@ -2,6 +2,7 @@ package com.ricka.prog2finalproject.service;
 
 import com.ricka.prog2finalproject.model.Tag;
 import com.ricka.prog2finalproject.repository.TagRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 public class TagService {
     private TagRepository tagRepository;
-    public List<Tag> getAllTags(){
+    public List<Tag> getAllTags(HttpServletResponse response){
         try {
             return this.tagRepository.getAll();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return null;
         }
     }
 }

@@ -2,6 +2,7 @@ package com.ricka.prog2finalproject.service;
 
 import com.ricka.prog2finalproject.model.Include;
 import com.ricka.prog2finalproject.repository.IncludeRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,12 @@ import java.util.List;
 public class IncludeService {
     private IncludeRepository includeRepository;
 
-    public ResponseEntity<List<Include>> getAllIncludes(){
+    public List<Include> getAllIncludes(HttpServletResponse response){
         try {
-            return ResponseEntity.ok(this.includeRepository.getAll());
+            return this.includeRepository.getAll();
         } catch (SQLException e) {
-            return ResponseEntity.internalServerError().body(null);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return null;
         }
     }
 }

@@ -1,8 +1,9 @@
-package com.ricka.prog2finalproject.repository;
+package com.ricka.prog2finalproject.repository.BasicImplementations;
 import lombok.AllArgsConstructor;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -49,12 +50,19 @@ public class BasicPostgresqlConf<T>{
      * @param resultSet The ResultSet containing the values.
      * @return An array containing all values as objects.
      */
-    protected Object[] getObjectValues(int columnCount, ResultSet resultSet) throws SQLException {
+    protected Object[] getObjectValues(ResultQuery resultQuery) throws SQLException {
         final List<Object> listOfArgs = new ArrayList<>();
-        for(int i = 1; i<= columnCount; i++){
-            listOfArgs.add(resultSet.getObject(i));
+        for(int i = 1; i<= resultQuery.getColumnCount(); i++){
+            listOfArgs.add(resultQuery.getResultSet().getObject(i));
         }
         return listOfArgs.toArray();
     }
+
+    protected ResultQuery getResult(Connection connection, String sql) throws SQLException {
+        final ResultSet result = connection.prepareStatement(sql).executeQuery();
+        final int columnCount = result.getMetaData().getColumnCount();
+        return new ResultQuery(result,columnCount);
+    }
+
 }
 

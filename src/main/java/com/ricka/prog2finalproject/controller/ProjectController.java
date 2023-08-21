@@ -2,6 +2,7 @@ package com.ricka.prog2finalproject.controller;
 
 import com.ricka.prog2finalproject.model.Project;
 import com.ricka.prog2finalproject.service.ProjectService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/projects")
-    public List<Project> getAllProjects(){
-        return this.projectService.getAllProjects();
+    public List<Project> getAllProjects(HttpServletResponse response){
+        return this.projectService.getAllProjects(response);
     }
 }
