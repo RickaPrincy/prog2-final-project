@@ -21,5 +21,15 @@ public class UserService {
             return  ResponseError.InternalServerError(response,error);
         }
     }
+
+    public User getUserById(HttpServletResponse response,Integer id){
+        try {
+            User result = this.userRepository.getById(id);
+            return ResponseError.isNotFound(response,result);
+        } catch (SQLException error) {
+            return  ResponseError.InternalServerError(response,error);
+        }
+    }
+
 }
 

@@ -22,4 +22,13 @@ public class IncludeService {
             return ResponseError.InternalServerError(response, error);
         }
     }
+
+    public Include getIncludeById(HttpServletResponse response, Integer id){
+        try {
+            Include result = this.includeRepository.getById(id);
+            return ResponseError.isNotFound(response, result);
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response, error);
+        }
+    }
 }

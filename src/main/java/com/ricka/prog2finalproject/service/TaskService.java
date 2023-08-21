@@ -21,4 +21,14 @@ public class TaskService {
             return ResponseError.InternalServerError(response,error);
         }
     }
+
+    public Task getTaskById(HttpServletResponse response,Integer id){
+        try {
+            Task result = this.taskRepository.getById(id);
+            return ResponseError.isNotFound(response,result);
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response,error);
+        }
+    }
+
 }

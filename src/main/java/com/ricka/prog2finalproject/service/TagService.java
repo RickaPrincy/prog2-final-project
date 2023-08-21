@@ -20,4 +20,14 @@ public class TagService {
             return ResponseError.InternalServerError(response,error);
         }
     }
+
+    public Tag getTagById(HttpServletResponse response, Integer id){
+        try {
+            Tag result = this.tagRepository.getById(id);
+            return ResponseError.isNotFound(response,result);
+        }
+        catch (SQLException error){
+            return ResponseError.InternalServerError(response,error);
+        }
+    }
 }

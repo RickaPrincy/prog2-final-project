@@ -21,4 +21,13 @@ public class ProjectService {
             return ResponseError.InternalServerError(response, error);
         }
     }
+
+    public Project getProjectById(HttpServletResponse response, Integer id){
+        try {
+            Project result = this.projectRepository.getById(id);
+            return ResponseError.isNotFound(response,result);
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response, error);
+        }
+    }
 }
