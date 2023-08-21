@@ -18,11 +18,11 @@ public class IncludeController {
 
     @GetMapping("/includes")
     public List<Include> getAllIncludes(HttpServletResponse response){
-        return this.includeService.getAllIncludes(response);
+        return this.includeService.getAll(response);
     }
 
     @GetMapping("/include/{id}")
     public Include getIncludeById (HttpServletResponse response, @PathVariable Integer id){
-        return this.includeService.getIncludeById(response,id);
+        return this.includeService.getById(response,id);
     }
 }

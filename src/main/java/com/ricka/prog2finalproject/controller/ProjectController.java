@@ -17,12 +17,12 @@ public class ProjectController {
 
     @GetMapping("/projects")
     public List<Project> getAllProjects(HttpServletResponse response){
-        return this.projectService.getAllProjects(response);
+        return this.projectService.getAll(response);
     }
 
     @GetMapping("/project/{id}")
     public Project getProjectById(HttpServletResponse response, @PathVariable Integer id){
-        return this.projectService.getProjectById(response, id);
+        return this.projectService.getById(response, id);
     }
 
 }

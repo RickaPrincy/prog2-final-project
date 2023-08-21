@@ -17,11 +17,11 @@ public class TaskController {
     private TaskService taskService;
     @GetMapping("/tasks")
     public List<Task> getAllTasks(HttpServletResponse response){
-        return this.taskService.getAllTasks(response);
+        return this.taskService.getAll(response);
     }
 
     @GetMapping("/task/{id}")
     public Task getTaskById(HttpServletResponse response, @PathVariable Integer id) {
-        return this.taskService.getTaskById(response, id);
+        return this.taskService.getById(response, id);
     }
 }

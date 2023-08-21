@@ -17,11 +17,11 @@ public class TagController {
 
     @GetMapping("/tags")
     public List<Tag> getAllTasks(HttpServletResponse response){
-        return this.tagService.getAllTags(response);
+        return this.tagService.getAll(response);
     }
 
     @GetMapping("/tag/{id}")
     public Tag getTagById(HttpServletResponse response, @PathVariable Integer id) {
-        return this.tagService.getTagById(response, id);
+        return this.tagService.getById(response, id);
     }
 }

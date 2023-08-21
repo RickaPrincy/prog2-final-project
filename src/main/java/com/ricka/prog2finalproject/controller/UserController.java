@@ -16,11 +16,11 @@ public class UserController {
     private UserService userService;
     @GetMapping("/users")
     public List<User> getAllUsers(HttpServletResponse response){
-        return this.userService.getAllUsers(response);
+        return this.userService.getAll(response);
     }
 
     @GetMapping("/user/{id}")
     public User getUserById(HttpServletResponse response, @PathVariable Integer id){
-        return this.userService.getUserById(response,id);
+        return this.userService.getById(response,id);
     }
 }
