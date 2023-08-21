@@ -20,5 +20,5 @@ public class Task {
     private String title;
     private Boolean status;
     private LocalDate startDate,endDate;
-    private int priority,userId,projectId,tagId;
+    private Integer priority,userId,projectId,tagId;
 }

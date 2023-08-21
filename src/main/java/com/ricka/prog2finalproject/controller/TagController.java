@@ -1,14 +1,10 @@
 package com.ricka.prog2finalproject.controller;
 
-import com.ricka.prog2finalproject.model.Project;
 import com.ricka.prog2finalproject.model.Tag;
 import com.ricka.prog2finalproject.service.TagService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,9 +22,13 @@ public class TagController {
     public Tag getTagById(HttpServletResponse response, @PathVariable Integer id) {
         return this.tagService.getById(response, id);
     }
-
     @DeleteMapping("/tag/{id}")
     public Tag deleteTagById(HttpServletResponse response, @PathVariable Integer id){
         return this.tagService.deleteById(response,id);
+    }
+
+    @PostMapping("/tag")
+    public Tag createTag(HttpServletResponse response, @RequestBody  Tag newTag){
+        return this.tagService.createTag(response,newTag);
     }
 }

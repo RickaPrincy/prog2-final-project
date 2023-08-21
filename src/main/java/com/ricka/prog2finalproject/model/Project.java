@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Project {
     private Integer id;
     private String name, description;
-    private boolean status;
+    private Boolean status;
     private LocalDate startDate,endDate;
-    private int userId;
+    private Integer userId;
 }

@@ -1,16 +1,11 @@
 package com.ricka.prog2finalproject.controller;
 
-import com.ricka.prog2finalproject.model.Tag;
 import com.ricka.prog2finalproject.model.Task;
 import com.ricka.prog2finalproject.service.TaskService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -30,5 +25,10 @@ public class TaskController {
     @DeleteMapping("/task/{id}")
     public Task deleteTaskById(HttpServletResponse response, @PathVariable Integer id){
         return this.taskService.deleteById(response,id);
+    }
+
+    @PostMapping("/task")
+    public Task createTask(HttpServletResponse response, @PathVariable Task newTask){
+        return this.taskService.createTask(response,newTask);
     }
 }

@@ -7,4 +7,5 @@ public interface BasicRepository<T>{
     List<T> getAll() throws SQLException;
     T getById(Integer id) throws SQLException;
     T deleteById(Integer id) throws SQLException;
+    T create(Object[] newObjectArgs) throws SQLException;
 }

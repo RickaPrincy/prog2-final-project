@@ -15,5 +15,5 @@ import lombok.EqualsAndHashCode;
 @NoArgsConstructor
 public class Include {
     private Integer id;
-    private int userId,projectId;
+    private Integer userId,projectId;
 }

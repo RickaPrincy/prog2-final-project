@@ -35,4 +35,13 @@ public class BasicService<T> {
             return ResponseError.InternalServerError(response, error);
         }
     }
+
+    public T create(HttpServletResponse response, Object[] objectArgs){
+        try {
+            T result = this.repository.create(objectArgs);
+            return ResponseError.isNotFound(response,result);
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response, error);
+        }
+    }
 }

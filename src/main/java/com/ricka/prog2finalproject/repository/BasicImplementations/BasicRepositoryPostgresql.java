@@ -1,6 +1,9 @@
 package com.ricka.prog2finalproject.repository.BasicImplementations;
 
+import com.ricka.prog2finalproject.service.ResponseError;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +51,19 @@ public class BasicRepositoryPostgresql<T> extends BasicPostgresqlConf<T> impleme
             return  objectAffected ;
         }
         return null;
+    }
+
+    @Override
+    public T create(Object[] args) throws SQLException {
+        String sql =
+                "INSERT INTO " + this.getTableName() + " (" +
+                this.getAllColumnsExceptId() + ") VALUES " +
+                "(" + this.getPreparedValues() + ")";
+
+        PreparedStatement statement = this.connection.prepareStatement(sql);
+        for(int i = 1; i <= this.getFieldsLength(); i++){
+            statement.setObject(i,args[i - 1]);
+        }
+        return this.getResultByUpdate(connection,statement);
     }
 }
