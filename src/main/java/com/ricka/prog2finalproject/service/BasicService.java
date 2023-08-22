@@ -38,6 +38,9 @@ public class BasicService<T> {
 
     public T create(HttpServletResponse response, Object[] objectArgs){
         try {
+            if(ResponseError.isBadRequest(response,objectArgs)){
+                return null;
+            }
             T result = this.repository.create(objectArgs);
             return ResponseError.isNotFound(response,result);
         } catch (SQLException error) {

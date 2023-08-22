@@ -23,7 +23,6 @@ public class ProjectService extends BasicService<Project> {
         args.add(newProject.getStartDate());
         args.add(newProject.getEndDate());
         args.add(newProject.getUserId());
-
         return this.create(response,args.toArray());
     }
 }
