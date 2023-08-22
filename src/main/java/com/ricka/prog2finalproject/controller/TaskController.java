@@ -28,7 +28,7 @@ public class TaskController {
     }
 
     @PostMapping("/task")
-    public Task createTask(HttpServletResponse response, @PathVariable Task newTask){
+    public Task createTask(HttpServletResponse response, @RequestBody Task newTask){
         return this.taskService.createTask(response,newTask);
     }
 }

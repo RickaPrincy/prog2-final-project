@@ -4,7 +4,6 @@ import com.ricka.prog2finalproject.model.Include;
 import com.ricka.prog2finalproject.service.IncludeService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class IncludeController {
     }
 
     @PostMapping("/include")
-    public Include createInclude(HttpServletResponse response,@PathVariable Include newInclude){
+    public Include createInclude(HttpServletResponse response,@RequestBody Include newInclude){
         return this.includeService.createInclude(response,newInclude);
     }
 

@@ -1,7 +1,5 @@
 package com.ricka.prog2finalproject.service;
 
-import com.ricka.prog2finalproject.model.Include;
-import com.ricka.prog2finalproject.model.Task;
 import com.ricka.prog2finalproject.model.User;
 import com.ricka.prog2finalproject.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
