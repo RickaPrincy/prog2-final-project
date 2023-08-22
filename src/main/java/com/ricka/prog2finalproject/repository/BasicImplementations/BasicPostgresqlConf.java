@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -25,7 +26,9 @@ public class BasicPostgresqlConf<T>{
      * @return new instance
      */
     protected T createInstance(Object ...args) throws SQLException{
-        Constructor<T> ctr = (Constructor<T>) this.type.getDeclaredConstructors()[0];
+        Constructor<T> ctr = (Constructor<T>) Arrays.stream(this.type.getDeclaredConstructors())
+                .filter(el->el.getParameterCount() > 0)
+                .toArray()[0];
         try {
             return ctr.newInstance(args);
         } catch (
