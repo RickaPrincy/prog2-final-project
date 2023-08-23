@@ -18,4 +18,11 @@ public class TagService extends BasicService<Tag>{
         newArgs.add(newTag.getName());
         return this.create(response,newArgs.toArray());
     }
+
+    public Tag updateTag(HttpServletResponse response,Integer id, Tag updateTad){
+        List<Object> updateArgs = new ArrayList<>();
+        updateArgs.add(id);
+        updateArgs.add(updateTad.getName());
+        return this.update(response,updateArgs.toArray());
+    }
 }

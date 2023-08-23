@@ -66,4 +66,17 @@ public class BasicRepositoryPostgresql<T> extends BasicPostgresqlConf<T> impleme
         }
         return this.getResultByUpdate(connection,statement);
     }
+
+    @Override
+    public T update(Object[] args) throws SQLException {
+        String sql =
+            " UPDATE " + this.getTableName() +
+            " SET " + this.getPreparedUpdate(args);
+        PreparedStatement statement = this.connection.prepareStatement(sql);
+        for(int i = 1; i <= this.getFieldsLength(); i++){
+            statement.setObject(i,args[i]);
+        }
+        statement.setObject(this.getFieldsLength() + 1, args[0]);
+        return this.getResultByUpdate(connection,statement);
+    }
 }

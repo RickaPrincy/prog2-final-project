@@ -8,4 +8,5 @@ public interface BasicRepository<T>{
     T getById(Integer id) throws SQLException;
     T deleteById(Integer id) throws SQLException;
     T create(Object[] newObjectArgs) throws SQLException;
+    T update(Object[] updateArgs) throws  SQLException;
 }

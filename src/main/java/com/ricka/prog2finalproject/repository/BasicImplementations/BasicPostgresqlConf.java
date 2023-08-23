@@ -20,8 +20,7 @@ public class BasicPostgresqlConf<T>{
 
     /**
      * This creates a new instance of the current class using
-     * the first constructor found in the class.
-     * In my case, it's the all-args constructor.
+     * the all args constructor in the class.
      * @param args : parameters that should be used in the all-args constructor
      * @return new instance
      */
@@ -50,6 +49,11 @@ public class BasicPostgresqlConf<T>{
         return "\"" + this.type.getSimpleName().toLowerCase() + "\"";
     }
 
+    /**
+     * Return all columns name except the id as string
+     * ex: table(int id,name varchar(255), age int) -> "name,age"
+     * @return
+     */
     protected String getAllColumnsExceptId(){
         List<Field> fields = Arrays.stream(this.type.getDeclaredFields()).skip(1).toList();
         return fields.stream().map(Field::getName).collect(Collectors.joining(","));
@@ -61,6 +65,18 @@ public class BasicPostgresqlConf<T>{
 
     protected String getPreparedValues(){
         return String.join(",","?".repeat(this.getFieldsLength()).split(""));
+    }
+
+    protected String getPreparedUpdate(Object[] args){
+        StringBuilder test = new StringBuilder();
+        Object[] fields = Arrays.stream(this.type.getDeclaredFields()).map(Field::getName).toArray();
+        for(int i = 1; i < fields.length; i++){
+            if(args[i] == null)
+                continue;
+            test.append(fields[i]).append(" = ?, ");
+        }
+        test = new StringBuilder(test.substring(0, test.length() - 2) + " WHERE id = ?");
+        return test.toString();
     }
 
     /**
@@ -82,6 +98,8 @@ public class BasicPostgresqlConf<T>{
         final int columnCount = result.getMetaData().getColumnCount();
         return new ResultQuery(result,columnCount);
     }
+
+
 
     protected T getResultByUpdate(Connection connection, PreparedStatement statement) throws SQLException {
         final int columnAffected = statement.executeUpdate();

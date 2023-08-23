@@ -31,4 +31,9 @@ public class TagController {
     public Tag createTag(HttpServletResponse response, @RequestBody  Tag newTag){
         return this.tagService.createTag(response,newTag);
     }
+
+    @PutMapping("/tag/{id}")
+    public Tag updateTag(HttpServletResponse response,@PathVariable Integer id, @RequestBody  Tag newTag){
+        return this.tagService.updateTag(response,id,newTag);
+    }
 }

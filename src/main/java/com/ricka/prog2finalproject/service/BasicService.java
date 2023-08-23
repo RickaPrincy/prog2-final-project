@@ -47,4 +47,16 @@ public class BasicService<T> {
             return ResponseError.InternalServerError(response, error);
         }
     }
+
+    public T update(HttpServletResponse response, Object[] objectArgs){
+        try {
+            if(ResponseError.isBadRequest(response,objectArgs)){
+                return null;
+            }
+            T result = this.repository.update(objectArgs);
+            return ResponseError.isNotFound(response,result);
+        } catch (SQLException error) {
+            return ResponseError.InternalServerError(response, error);
+        }
+    }
 }
