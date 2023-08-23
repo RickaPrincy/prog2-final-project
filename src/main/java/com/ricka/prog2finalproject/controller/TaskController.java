@@ -28,7 +28,13 @@ public class TaskController {
     }
 
     @PostMapping("/task")
-    public Task createTask(HttpServletResponse response, @RequestBody Task newTask){
-        return this.taskService.createTask(response,newTask);
+    public Task createTask(HttpServletResponse response, @RequestBody Task task){
+        return this.taskService.createTask(response,task);
     }
+
+    @PutMapping("/task/{id}")
+    public Task updateTask(HttpServletResponse response,@PathVariable Integer id, @RequestBody Task task){
+        return this.taskService.updateTask(response,id,task);
+    }
+
 }

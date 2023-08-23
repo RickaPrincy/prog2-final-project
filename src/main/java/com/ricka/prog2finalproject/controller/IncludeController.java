@@ -29,10 +29,14 @@ public class IncludeController {
     }
 
     @PostMapping("/include")
-    public Include createInclude(HttpServletResponse response,@RequestBody Include newInclude){
-        return this.includeService.createInclude(response,newInclude);
+    public Include createInclude(HttpServletResponse response,@RequestBody Include include){
+        return this.includeService.createInclude(response,include);
     }
 
+    @PutMapping("include/{id}")
+    public Include updateInclude(HttpServletResponse response, @PathVariable Integer id, @RequestBody Include include){
+        return this.includeService.updateInclude(response,id,include);
+    }
 }
 
 

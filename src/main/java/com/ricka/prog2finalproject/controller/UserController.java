@@ -28,8 +28,12 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public User createTag(HttpServletResponse response, @RequestBody  User newUser){
-        return this.userService.createUser(response,newUser);
+    public User createTag(HttpServletResponse response, @RequestBody  User user){
+        return this.userService.createUser(response,user);
     }
 
+    @PutMapping("/user/{id}")
+    public User updaUser(HttpServletResponse response,@PathVariable Integer id,@RequestBody User user){
+        return this.userService.updateUser(response,id,user);
+    }
 }

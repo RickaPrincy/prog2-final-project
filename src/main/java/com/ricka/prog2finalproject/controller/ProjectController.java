@@ -29,7 +29,12 @@ public class ProjectController {
     }
 
     @PostMapping("/project")
-    public Project createProject(HttpServletResponse response, @RequestBody Project newProject){
-        return this.projectService.createProject(response,newProject);
+    public Project createProject(HttpServletResponse response, @RequestBody Project project){
+        return this.projectService.createProject(response,project);
+    }
+
+    @PutMapping("/project/{id}")
+    public Project updateProject(HttpServletResponse response,@PathVariable Integer id,@RequestBody Project project){
+        return this.projectService.updateProject(response,id,project);
     }
 }

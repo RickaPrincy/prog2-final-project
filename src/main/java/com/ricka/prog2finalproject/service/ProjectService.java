@@ -14,15 +14,24 @@ public class ProjectService extends BasicService<Project> {
     public ProjectService(ProjectRepository projectRepository){
         super(projectRepository);
     }
-    public Project createProject(HttpServletResponse response, Project newProject){
+
+    private List<Object> getArgs(Project project){
         List<Object> args = new ArrayList<>();
-        args.add(newProject.getName());
-        args.add(newProject.getDescription());
-        args.add(newProject.getDescription());
-        args.add(newProject.getStatus());
-        args.add(newProject.getStartDate());
-        args.add(newProject.getEndDate());
-        args.add(newProject.getUserId());
+        args.add(project.getName());
+        args.add(project.getDescription());
+        args.add(project.getStatus());
+        args.add(project.getStartDate());
+        args.add(project.getEndDate());
+        args.add(project.getUserId());
+        return args;
+    }
+    public Project createProject(HttpServletResponse response, Project project){
+        return this.updateDb(response,this.getArgs(project).toArray(), HttpMethod.POST);
+    }
+
+    public Project updateProject(HttpServletResponse response, Integer id,Project project){
+        List<Object> args = this.getArgs(project);
+        args.add(0,id);
         return this.updateDb(response,args.toArray(), HttpMethod.POST);
     }
 }

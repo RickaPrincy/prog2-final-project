@@ -28,12 +28,12 @@ public class TagController {
     }
 
     @PostMapping("/tag")
-    public Tag createTag(HttpServletResponse response, @RequestBody  Tag newTag){
-        return this.tagService.createTag(response,newTag);
+    public Tag createTag(HttpServletResponse response, @RequestBody Tag tag){
+        return this.tagService.createTag(response,tag);
     }
 
     @PutMapping("/tag/{id}")
-    public Tag updateTag(HttpServletResponse response,@PathVariable Integer id, @RequestBody  Tag newTag){
-        return this.tagService.updateTag(response,id,newTag);
+    public Tag updateTag(HttpServletResponse response,@PathVariable Integer id, @RequestBody  Tag tag){
+        return this.tagService.updateTag(response,id,tag);
     }
 }
