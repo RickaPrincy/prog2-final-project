@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -52,7 +51,7 @@ public class BasicPostgresqlConf<T>{
     /**
      * Return all columns name except the id as string
      * ex: table(int id,name varchar(255), age int) -> "name,age"
-     * @return
+     * @return String contain all columns
      */
     protected String getAllColumnsExceptId(){
         List<Field> fields = Arrays.stream(this.type.getDeclaredFields()).skip(1).toList();
@@ -63,15 +62,15 @@ public class BasicPostgresqlConf<T>{
         return this.type.getDeclaredFields().length - 1;
     }
 
-    protected String getPreparedValues(){
+    protected String createPreparedSQL(){
         return String.join(",","?".repeat(this.getFieldsLength()).split(""));
     }
 
-    protected String getPreparedUpdate(Object[] args){
+    protected String updatePreparedSQL(Object[] args,boolean acceptNull){
         StringBuilder test = new StringBuilder();
         Object[] fields = Arrays.stream(this.type.getDeclaredFields()).map(Field::getName).toArray();
         for(int i = 1; i < fields.length; i++){
-            if(args[i] == null)
+            if(!acceptNull && args[i] == null)
                 continue;
             test.append(fields[i]).append(" = ?, ");
         }
@@ -99,13 +98,15 @@ public class BasicPostgresqlConf<T>{
         return new ResultQuery(result,columnCount);
     }
 
-
-
-    protected T getResultByUpdate(Connection connection, PreparedStatement statement) throws SQLException {
+    protected T getResultByUpdateDb(Connection connection, PreparedStatement statement, Object id) throws SQLException {
         final int columnAffected = statement.executeUpdate();
         if(columnAffected == 1){
-            String sqlToTakeNewObject = "SELECT * FROM " + this.getTableName() + " ORDER BY id DESC LIMIT 1";
-            ResultQuery resultQuery = this.getResultByQuery(connection,sqlToTakeNewObject);
+            StringBuilder sqlToTakeObject= new StringBuilder("SELECT * FROM " + this.getTableName());
+            if(id == null)
+                sqlToTakeObject.append(" ORDER BY id DESC LIMIT 1");
+            else
+                sqlToTakeObject.append("WHERE id = ").append(id);
+            ResultQuery resultQuery = this.getResultByQuery(connection,sqlToTakeObject.toString());
             resultQuery.getResultSet().next();
             Object[] newArgs = this.getObjectValues(resultQuery);
             return this.createInstance(newArgs);

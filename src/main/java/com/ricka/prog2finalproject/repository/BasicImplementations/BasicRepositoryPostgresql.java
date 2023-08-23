@@ -1,7 +1,5 @@
 package com.ricka.prog2finalproject.repository.BasicImplementations;
 
-import com.ricka.prog2finalproject.service.ResponseError;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -58,25 +56,25 @@ public class BasicRepositoryPostgresql<T> extends BasicPostgresqlConf<T> impleme
         String sql =
                 "INSERT INTO " + this.getTableName() + " (" +
                 this.getAllColumnsExceptId() + ") VALUES " +
-                "(" + this.getPreparedValues() + ")";
+                "(" + this.createPreparedSQL() + ")";
 
         PreparedStatement statement = this.connection.prepareStatement(sql);
         for(int i = 1; i <= this.getFieldsLength(); i++){
             statement.setObject(i,args[i - 1]);
         }
-        return this.getResultByUpdate(connection,statement);
+        return this.getResultByUpdateDb(connection,statement,null);
     }
 
     @Override
     public T update(Object[] args) throws SQLException {
         String sql =
-            " UPDATE " + this.getTableName() +
-            " SET " + this.getPreparedUpdate(args);
+            "UPDATE " + this.getTableName() +
+            " SET " + this.updatePreparedSQL(args,false);
         PreparedStatement statement = this.connection.prepareStatement(sql);
         for(int i = 1; i <= this.getFieldsLength(); i++){
             statement.setObject(i,args[i]);
         }
         statement.setObject(this.getFieldsLength() + 1, args[0]);
-        return this.getResultByUpdate(connection,statement);
+        return this.getResultByUpdateDb(connection,statement,args[0]);
     }
 }
