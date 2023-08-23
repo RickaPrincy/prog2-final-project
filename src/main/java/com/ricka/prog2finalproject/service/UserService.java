@@ -3,6 +3,7 @@ package com.ricka.prog2finalproject.service;
 import com.ricka.prog2finalproject.model.User;
 import com.ricka.prog2finalproject.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class UserService extends BasicService<User>{
         args.add(newUser.getName());
         args.add(newUser.getEmail());
         args.add(newUser.getPassword());
-        return this.create(response,args.toArray());
+        return this.updateDb(response,args.toArray(), HttpMethod.POST);
     }
 }
 

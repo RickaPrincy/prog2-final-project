@@ -3,6 +3,7 @@ package com.ricka.prog2finalproject.service;
 import com.ricka.prog2finalproject.model.Task;
 import com.ricka.prog2finalproject.repository.TaskRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,6 @@ public class TaskService extends BasicService<Task>{
         args.add(newTask.getProjectId());
         args.add(newTask.getTagId());
 
-        return this.create(response,args.toArray());
+        return this.updateDb(response,args.toArray(), HttpMethod.POST);
     }
 }

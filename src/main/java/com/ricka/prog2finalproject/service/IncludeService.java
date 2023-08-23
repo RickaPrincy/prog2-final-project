@@ -3,6 +3,7 @@ package com.ricka.prog2finalproject.service;
 import com.ricka.prog2finalproject.model.Include;
 import com.ricka.prog2finalproject.repository.IncludeRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,6 @@ public class IncludeService extends BasicService<Include>{
         List<Object> args = new ArrayList<>();
         args.add(newInclude.getProjectId());
         args.add(newInclude.getUserId());
-        return this.create(response,args.toArray());
+        return this.updateDb(response,args.toArray(),HttpMethod.POST);
     }
 }

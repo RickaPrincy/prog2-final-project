@@ -3,6 +3,7 @@ package com.ricka.prog2finalproject.service;
 import com.ricka.prog2finalproject.repository.BasicImplementations.BasicRepositoryPostgresql;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpMethod;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -36,24 +37,17 @@ public class BasicService<T> {
         }
     }
 
-    public T create(HttpServletResponse response, Object[] objectArgs){
+    protected T updateDb(HttpServletResponse response, Object[] args, HttpMethod method){
         try {
-            if(ResponseError.isBadRequest(response,objectArgs)){
+            if(ResponseError.isBadRequest(response,args)){
                 return null;
             }
-            T result = this.repository.create(objectArgs);
-            return ResponseError.isNotFound(response,result);
-        } catch (SQLException error) {
-            return ResponseError.InternalServerError(response, error);
-        }
-    }
+            T result;
+            if(method == HttpMethod.POST)
+                result = this.repository.create(args);
+            else
+                result = this.repository.update(args);
 
-    public T update(HttpServletResponse response, Object[] objectArgs){
-        try {
-            if(ResponseError.isBadRequest(response,objectArgs)){
-                return null;
-            }
-            T result = this.repository.update(objectArgs);
             return ResponseError.isNotFound(response,result);
         } catch (SQLException error) {
             return ResponseError.InternalServerError(response, error);

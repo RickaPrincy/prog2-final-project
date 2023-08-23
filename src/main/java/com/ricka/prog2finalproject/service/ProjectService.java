@@ -3,6 +3,7 @@ package com.ricka.prog2finalproject.service;
 import com.ricka.prog2finalproject.model.Project;
 import com.ricka.prog2finalproject.repository.ProjectRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,6 @@ public class ProjectService extends BasicService<Project> {
         args.add(newProject.getStartDate());
         args.add(newProject.getEndDate());
         args.add(newProject.getUserId());
-        return this.create(response,args.toArray());
+        return this.updateDb(response,args.toArray(), HttpMethod.POST);
     }
 }
