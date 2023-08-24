@@ -36,4 +36,9 @@ public class TagController {
     public Tag updateTag(HttpServletResponse response,@PathVariable Integer id, @RequestBody  Tag tag){
         return this.tagService.updateTag(response,id,tag);
     }
+
+    @PatchMapping("/tag/{id}")
+    public Tag updatePartialTag(HttpServletResponse response,@PathVariable Integer id, @RequestBody  Tag tag){
+        return this.tagService.updatePartialTag(response,id,tag);
+    }
 }

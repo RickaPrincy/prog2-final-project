@@ -1,8 +1,10 @@
 package com.ricka.prog2finalproject.service;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.validation.ObjectError;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ResponseError {
     public static <T> T InternalServerError(HttpServletResponse response, Exception error){
@@ -25,6 +27,23 @@ public class ResponseError {
             }
         }
         return result;
+    }
+
+    public static boolean isEveryNull(HttpServletResponse response, Object[] args){
+        for(int i =1; i< args.length;i++){
+            if(args[i] != null)
+                return false;
+        }
+        try {
+            response.sendError(
+                    HttpServletResponse.SC_BAD_REQUEST,
+                    "You must specify at least one fields"
+            );
+        }
+        catch (IOException error){
+            ResponseError.InternalServerError(response,error);
+        }
+        return true;
     }
 
     public static boolean isBadRequest(HttpServletResponse response, Object[] args){

@@ -36,4 +36,10 @@ public class TaskService extends BasicService<Task>{
         args.add(0,id);
         return this.updateDb(response,args.toArray(),HttpMethod.PUT);
     }
+
+    public Task updatePartialTask(HttpServletResponse response, Integer id, Task task){
+        List<Object> args = this.getArgs(task);
+        args.add(0,id);
+        return this.updateDb(response,args.toArray(),HttpMethod.PATCH);
+    }
 }

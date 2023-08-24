@@ -32,4 +32,11 @@ public class UserService extends BasicService<User>{
         args.add(0,id);
         return this.updateDb(response,args.toArray(), HttpMethod.PUT);
     }
+
+
+    public User updatePartialUser(HttpServletResponse response, Integer id,User user){
+        List<Object> args = this.getArgs(user);
+        args.add(0,id);
+        return this.updateDb(response,args.toArray(), HttpMethod.PATCH);
+    }
 }

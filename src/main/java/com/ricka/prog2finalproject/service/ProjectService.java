@@ -34,4 +34,10 @@ public class ProjectService extends BasicService<Project> {
         args.add(0,id);
         return this.updateDb(response,args.toArray(), HttpMethod.POST);
     }
+
+    public Project updatePartialProject(HttpServletResponse response, Integer id,Project project){
+        List<Object> args = this.getArgs(project);
+        args.add(0,id);
+        return this.updateDb(response,args.toArray(), HttpMethod.PATCH);
+    }
 }

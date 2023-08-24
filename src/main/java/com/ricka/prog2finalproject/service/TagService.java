@@ -28,4 +28,10 @@ public class TagService extends BasicService<Tag>{
         args.add(0,id);
         return this.updateDb(response,args.toArray(), HttpMethod.PUT);
     }
+
+    public Tag updatePartialTag(HttpServletResponse response,Integer id, Tag tag){
+        List<Object> args = this.getArgs(tag);
+        args.add(0,id);
+        return this.updateDb(response,args.toArray(), HttpMethod.PATCH);
+    }
 }

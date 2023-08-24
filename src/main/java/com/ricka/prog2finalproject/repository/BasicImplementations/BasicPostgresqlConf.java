@@ -66,11 +66,11 @@ public class BasicPostgresqlConf<T>{
         return String.join(",","?".repeat(this.getFieldsLength()).split(""));
     }
 
-    protected String updatePreparedSQL(Object[] args,boolean acceptNull){
+    protected String updatePreparedSQL(Object[] args){
         StringBuilder test = new StringBuilder();
         Object[] fields = Arrays.stream(this.type.getDeclaredFields()).map(Field::getName).toArray();
         for(int i = 1; i < fields.length; i++){
-            if(!acceptNull && args[i] == null)
+            if(args[i] == null)
                 continue;
             test.append(fields[i]).append(" = ?, ");
         }

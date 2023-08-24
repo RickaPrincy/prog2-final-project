@@ -37,4 +37,9 @@ public class ProjectController {
     public Project updateProject(HttpServletResponse response,@PathVariable Integer id,@RequestBody Project project){
         return this.projectService.updateProject(response,id,project);
     }
+
+    @PatchMapping("/project/{id}")
+    public Project updatePartialProject(HttpServletResponse response,@PathVariable Integer id,@RequestBody Project project){
+        return this.projectService.updatePartialProject(response,id,project);
+    }
 }

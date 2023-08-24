@@ -37,4 +37,8 @@ public class TaskController {
         return this.taskService.updateTask(response,id,task);
     }
 
+    @PatchMapping("/task/{id}")
+    public Task updatePartialTask(HttpServletResponse response,@PathVariable Integer id, @RequestBody Task task){
+        return this.taskService.updatePartialTask(response,id,task);
+    }
 }

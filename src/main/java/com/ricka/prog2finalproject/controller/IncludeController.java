@@ -37,6 +37,11 @@ public class IncludeController {
     public Include updateInclude(HttpServletResponse response, @PathVariable Integer id, @RequestBody Include include){
         return this.includeService.updateInclude(response,id,include);
     }
+
+    @PatchMapping("include/{id}")
+    public Include updatePartialInclude(HttpServletResponse response, @PathVariable Integer id, @RequestBody Include include){
+        return this.includeService.updatePartialInclude(response,id,include);
+    }
 }
 
 

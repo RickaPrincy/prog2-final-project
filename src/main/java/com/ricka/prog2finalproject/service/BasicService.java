@@ -39,15 +39,19 @@ public class BasicService<T> {
 
     protected T updateDb(HttpServletResponse response, Object[] args, HttpMethod method){
         try {
-            if(ResponseError.isBadRequest(response,args)){
-                return null;
-            }
             T result;
-            if(method == HttpMethod.POST)
-                result = this.repository.create(args);
-            else
+            if (method == HttpMethod.PATCH) {
+                if (ResponseError.isEveryNull(response, args))
+                    return null;
                 result = this.repository.update(args);
-
+            } else {
+                if (ResponseError.isBadRequest(response, args))
+                    return null;
+                if (method == HttpMethod.POST)
+                    result = this.repository.create(args);
+                else
+                    result = this.repository.update(args);
+            }
             return ResponseError.isNotFound(response,result);
         } catch (SQLException error) {
             return ResponseError.InternalServerError(response, error);

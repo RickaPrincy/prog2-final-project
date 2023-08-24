@@ -36,4 +36,9 @@ public class UserController {
     public User updaUser(HttpServletResponse response,@PathVariable Integer id,@RequestBody User user){
         return this.userService.updateUser(response,id,user);
     }
+
+    @PatchMapping("/user/{id}")
+    public User updaPartialUser(HttpServletResponse response,@PathVariable Integer id,@RequestBody User user){
+        return this.userService.updatePartialUser(response,id,user);
+    }
 }

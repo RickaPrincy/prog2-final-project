@@ -31,4 +31,10 @@ public class IncludeService extends BasicService<Include>{
         args.add(0,id);
         return this.updateDb(response,args.toArray(),HttpMethod.PUT);
     }
+
+    public Include updatePartialInclude(HttpServletResponse response, Integer id, Include include){
+        List<Object> args = this.getArgs(include);
+        args.add(0,id);
+        return this.updateDb(response,args.toArray(),HttpMethod.PATCH);
+    }
 }
