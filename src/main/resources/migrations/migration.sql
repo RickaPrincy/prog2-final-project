@@ -21,8 +21,8 @@ create table "project"(
   name varchar(255) not null,
   description text not null,
   status boolean not null default false,
-  startDate date default current_date not null,
-  endDate date not null,
+  startDate timestamp default current_timestamp not null,
+  endDate timestamp not null,
   userId int references "user"(id) not null
 );
 
@@ -30,8 +30,8 @@ create table "task"(
   id serial primary key,
   title varchar(255) not null,
   status boolean not null default false,
-  startDate Date default current_date not null,
-  endDate Date not null,
+  startDate timestamp default current_timestamp not null,
+  endDate timestamp not null,
   priority int not null default 1 check (priority >= 1),
   userId int references "user"(id) not null,
   projectId int references "project"(id) not null,

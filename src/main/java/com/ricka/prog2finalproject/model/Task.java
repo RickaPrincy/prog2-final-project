@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -19,6 +19,6 @@ public class Task {
     private Integer id;
     private String title;
     private Boolean status;
-    private LocalDate startDate,endDate;
+    private Timestamp startDate,endDate;
     private Integer priority,userId,projectId,tagId;
 }

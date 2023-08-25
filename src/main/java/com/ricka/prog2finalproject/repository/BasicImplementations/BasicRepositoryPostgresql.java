@@ -1,8 +1,10 @@
 package com.ricka.prog2finalproject.repository.BasicImplementations;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,9 +69,7 @@ public class BasicRepositoryPostgresql<T> extends BasicPostgresqlConf<T> impleme
 
     @Override
     public T update(Object[] args) throws SQLException {
-        String sql =
-            "UPDATE " + this.getTableName() +
-            " SET " + this.updatePreparedSQL(args);
+        String sql = "UPDATE " + this.getTableName() + " SET " + this.updatePreparedSQL(args);
         PreparedStatement statement = this.connection.prepareStatement(sql);
         int index = 0;
         for(int i = 1; i <= this.getFieldsLength(); i++){
