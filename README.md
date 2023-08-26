@@ -13,9 +13,9 @@ RPM is a simple API project manager for basic usage. In the future (perhaps), th
 ```
  
 - That's it! You are now able to run the server.
-
+- You can create some mock data using the file [insert.sql](./src/main/resources/mock/insert.sql)
 # Swagger
 
 - Here is the URL for the Swagger documentation of this API: 
-  - https://petstore.swagger.io/?url=https://gist.githubusercontent.com/RickaPrincy/888fb9c3e9b966e7d3678bae60e7f24e/raw/ebe1a64c618f6e36ca234f74aa4596fbe34b2827/yaml
+  - https://petstore.swagger.io/?url=https://gist.githubusercontent.com/RickaPrincy/888fb9c3e9b966e7d3678bae60e7f24e/raw/d219d43d3b505b6610abe98bd0f7a800329e8133/yaml
 - You can also view it [here](./docs/swagger.yml)
