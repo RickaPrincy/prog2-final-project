@@ -1,10 +1,8 @@
 package com.ricka.prog2finalproject.service;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.validation.ObjectError;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class ResponseError {
     public static <T> T InternalServerError(HttpServletResponse response, Exception error){

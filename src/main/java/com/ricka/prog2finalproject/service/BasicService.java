@@ -1,6 +1,5 @@
 package com.ricka.prog2finalproject.service;
 
-import com.ricka.prog2finalproject.model.Tag;
 import com.ricka.prog2finalproject.repository.BasicImplementations.BasicRepositoryPostgresql;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
