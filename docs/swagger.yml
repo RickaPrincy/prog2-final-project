@@ -6,7 +6,7 @@ info:
   contact:
     email: rckprincy@gmail.com
 servers:
-  - url: http://localhost:{ port | 8080 }
+  - url: http://localhost:8080
 paths:
   /users:
     get:
@@ -77,7 +77,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/User'
           description: Successful response
         '404':
@@ -109,7 +108,7 @@ paths:
         '500':
           description: Internal server error 
     put:
-      summary: Update all flieds except id in User by id
+      summary: Update all fields except id in User by id
       description: Update one user, you must specify all new information about the user except his id
       tags:
         - "users"
@@ -153,7 +152,7 @@ paths:
         '500':
           description: Internal server error 
     patch:
-      summary: Update some flieds except id in User by id
+      summary: Update some fields except id in User by id
       description: Update one user,you must specify at least one field 
       tags:
         - "users"
@@ -1010,7 +1009,7 @@ components:
           example: 1
         title:
           type: string
-          example: taks to do this month
+          example: tasks to do this month
         status:
           type: boolean
           example: false
