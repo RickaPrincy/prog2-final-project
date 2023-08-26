@@ -557,7 +557,34 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Task'
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: task to do this month
+                status:
+                  type: boolean
+                  example: false
+                startDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-01T02:02:02Z
+                endDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-15T02:02:02Z
+                priority:
+                  type: integer
+                  example: 1
+                userId:
+                  type: integer
+                  example: 1
+                projectId:
+                  type: integer
+                  example: 1
+                tagId:
+                  type: integer
+                  example: 1
       responses:
         '200':
           description: Task created successfully
