@@ -10,34 +10,35 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/users")
 public class UserController {
     private UserService userService;
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getAllUsers(HttpServletResponse response){
         return this.userService.getAll(response);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public User getUserById(HttpServletResponse response, @PathVariable Integer id){
         return this.userService.getById(response,id);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public User deleteUserById(HttpServletResponse response, @PathVariable Integer id){
         return this.userService.deleteById(response,id);
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public User createTag(HttpServletResponse response, @RequestBody  User user){
         return this.userService.createUser(response,user);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public User updaUser(HttpServletResponse response,@PathVariable Integer id,@RequestBody User user){
         return this.userService.updateUser(response,id,user);
     }
 
-    @PatchMapping("/user/{id}")
+    @PatchMapping("/{id}")
     public User updaPartialUser(HttpServletResponse response,@PathVariable Integer id,@RequestBody User user){
         return this.userService.updatePartialUser(response,id,user);
     }

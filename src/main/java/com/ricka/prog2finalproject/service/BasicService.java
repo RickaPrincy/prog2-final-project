@@ -39,7 +39,8 @@ public class BasicService<T> {
                 errorMessage.append(error.getMessage().split("\"")[1])
                         .append(" which has the id = ")
                         .append(id).append(" because it's linked with ")
-                        .append( error.getMessage().split("\"")[5]);
+                        .append( error.getMessage().split("\"")[5])
+                        .append(", delete that first");
                 try {
                     response.sendError( HttpServletResponse.SC_BAD_REQUEST,errorMessage.toString());
                 } catch (IOException internalError) {

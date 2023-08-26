@@ -10,34 +10,35 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/tags")
 public class TagController {
     private TagService tagService;
 
-    @GetMapping("/tags")
+    @GetMapping
     public List<Tag> getAllTasks(HttpServletResponse response){
         return this.tagService.getAll(response);
     }
 
-    @GetMapping("/tag/{id}")
+    @GetMapping("/{id}")
     public Tag getTagById(HttpServletResponse response, @PathVariable Integer id) {
         return this.tagService.getById(response, id);
     }
-    @DeleteMapping("/tag/{id}")
+    @DeleteMapping("/{id}")
     public Tag deleteTagById(HttpServletResponse response, @PathVariable Integer id){
         return this.tagService.deleteById(response,id);
     }
 
-    @PostMapping("/tag")
+    @PostMapping
     public Tag createTag(HttpServletResponse response, @RequestBody Tag tag){
         return this.tagService.createTag(response,tag);
     }
 
-    @PutMapping("/tag/{id}")
+    @PutMapping("/{id}")
     public Tag updateTag(HttpServletResponse response,@PathVariable Integer id, @RequestBody  Tag tag){
         return this.tagService.updateTag(response,id,tag);
     }
 
-    @PatchMapping("/tag/{id}")
+    @PatchMapping("/{id}")
     public Tag updatePartialTag(HttpServletResponse response,@PathVariable Integer id, @RequestBody  Tag tag){
         return this.tagService.updatePartialTag(response,id,tag);
     }

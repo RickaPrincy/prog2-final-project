@@ -10,34 +10,35 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("tasks")
 public class TaskController {
     private TaskService taskService;
-    @GetMapping("/tasks")
+    @GetMapping
     public List<Task> getAllTasks(HttpServletResponse response){
         return this.taskService.getAll(response);
     }
 
-    @GetMapping("/task/{id}")
+    @GetMapping("/{id}")
     public Task getTaskById(HttpServletResponse response, @PathVariable Integer id) {
         return this.taskService.getById(response, id);
     }
 
-    @DeleteMapping("/task/{id}")
+    @DeleteMapping("/{id}")
     public Task deleteTaskById(HttpServletResponse response, @PathVariable Integer id){
         return this.taskService.deleteById(response,id);
     }
 
-    @PostMapping("/task")
+    @PostMapping
     public Task createTask(HttpServletResponse response, @RequestBody Task task){
         return this.taskService.createTask(response,task);
     }
 
-    @PutMapping("/task/{id}")
+    @PutMapping("/{id}")
     public Task updateTask(HttpServletResponse response,@PathVariable Integer id, @RequestBody Task task){
         return this.taskService.updateTask(response,id,task);
     }
 
-    @PatchMapping("/task/{id}")
+    @PatchMapping("/{id}")
     public Task updatePartialTask(HttpServletResponse response,@PathVariable Integer id, @RequestBody Task task){
         return this.taskService.updatePartialTask(response,id,task);
     }

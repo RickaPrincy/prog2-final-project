@@ -10,35 +10,36 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/projects")
 public class ProjectController {
     private ProjectService projectService;
 
-    @GetMapping("/projects")
+    @GetMapping
     public List<Project> getAllProjects(HttpServletResponse response){
         return this.projectService.getAll(response);
     }
 
-    @GetMapping("/project/{id}")
+    @GetMapping("/{id}")
     public Project getProjectById(HttpServletResponse response, @PathVariable Integer id){
         return this.projectService.getById(response, id);
     }
 
-    @DeleteMapping("/project/{id}")
+    @DeleteMapping("/{id}")
     public Project deleteProjectById(HttpServletResponse response, @PathVariable Integer id){
         return this.projectService.deleteById(response,id);
     }
 
-    @PostMapping("/project")
+    @PostMapping
     public Project createProject(HttpServletResponse response, @RequestBody Project project){
         return this.projectService.createProject(response,project);
     }
 
-    @PutMapping("/project/{id}")
+    @PutMapping("/{id}")
     public Project updateProject(HttpServletResponse response,@PathVariable Integer id,@RequestBody Project project){
         return this.projectService.updateProject(response,id,project);
     }
 
-    @PatchMapping("/project/{id}")
+    @PatchMapping("/{id}")
     public Project updatePartialProject(HttpServletResponse response,@PathVariable Integer id,@RequestBody Project project){
         return this.projectService.updatePartialProject(response,id,project);
     }

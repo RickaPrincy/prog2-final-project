@@ -1,0 +1,1062 @@
+openapi: 3.0.0
+info:
+  title: RPM API
+  version: '0.1'
+  description: This is just a simple API to manage project tasks 
+  contact:
+    email: rckprincy@gmail.com
+servers:
+  - url: http://localhost:{ port | 8080 }
+paths:
+  /users:
+    get:
+      summary: Get all users
+      description: Retrieves list of users
+      tags:
+        - "users"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/User'
+          description: Successful response
+        '500':
+          description: Internal server error 
+    post:
+      summary: Create an User 
+      tags:
+        - "users"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: HEI 
+                email:
+                  type: string
+                  example: hei@gmail.com
+                password:
+                  type: string
+                  example: my_password 
+              required:
+                - name
+                - email
+                - password
+      responses:
+        '200':
+          content:
+            application/json:
+             schema:
+                $ref: '#/components/schemas/User'
+          description: User created successfully
+        '400':
+          description: Bad request, one or more fields are empty 
+        '500':
+          description: Internal server  error
+  /users/{id}:
+    get:
+      summary: Get a user by id
+      description: Retrieves one user by it's id
+      tags:
+        - "users"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/User'
+          description: Successful response
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error 
+    delete:
+      summary: Delete a user by ID
+      description: Delete one user by it's id, make sure there's no something related with it
+      tags:
+        - "users"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+             schema:
+                $ref: '#/components/schemas/User'
+          description: Successful response 
+        '400':
+          description: Bad request, Cannot delete the user which has the id = {id} because it's still linked with {related_table}, delete that first 
+        '404':
+          description: Not found (when user doesn't exist) 
+        '500':
+          description: Internal server error 
+    put:
+      summary: Update all flieds except id in User by id
+      description: Update one user, you must specify all new information about the user except his id
+      tags:
+        - "users"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: HEI 
+                email:
+                  type: string
+                  example: hei@gmail.com
+                password:
+                  type: string
+                  example: my_password 
+              required:
+                - name
+                - email
+                - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: User updated
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found, (when user doesn't exist) 
+        '500':
+          description: Internal server error 
+    patch:
+      summary: Update some flieds except id in User by id
+      description: Update one user,you must specify at least one field 
+      tags:
+        - "users"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: HEI 
+                email:
+                  type: string
+                  example: hei@gmail.com
+                password:
+                  type: string
+                  example: my_password 
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: User updated
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found, (when user doesn't exist) 
+        '500':
+          description: Internal server error 
+  /includes:
+    get:
+      summary: Get all includes
+      description: Retrieves a list of includes
+      tags:
+        - "includes"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Include'
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Create an Include
+      tags:
+        - "includes"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  example: 1
+                projectId:
+                  type: integer
+                  example: 1
+              required:
+                - userId
+                - projectId
+      responses:
+        '200':
+          description: Include created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Include'
+        '400':
+          description: Bad request, one or more fields are empty
+        '500':
+          description: Internal server error
+
+  /includes/{id}:
+    get:
+      summary: Get an include by id
+      description: Retrieves an include by its id
+      tags:
+        - "includes"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Include'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Delete an include by ID
+      description: Delete an include by its id
+      tags:
+        - "includes"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Include deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Include'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    put:
+      summary: Update an include by id
+      description: Update an include by specifying all new information
+      tags:
+        - "includes"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  example: 1
+                projectId:
+                  type: integer
+                  example: 1
+              required:
+                - userId
+                - projectId
+      responses:
+        '200':
+          description: Include updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Include'
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    patch:
+      summary: Update an include by id
+      description: Update an include by specifying at least one field
+      tags:
+        - "includes"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  example: 1
+                projectId:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: Include updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Include'
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /tags:
+    get:
+      summary: Get all tags
+      description: Retrieves a list of tags
+      tags:
+        - "tags"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Create a tag
+      tags:
+        - "tags"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Important
+              required:
+                - name
+      responses:
+        '200':
+          description: Tag created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400':
+          description: Bad request, one or more fields are empty
+        '500':
+          description: Internal server error
+
+  /tags/{id}:
+    get:
+      summary: Get a tag by id
+      description: Retrieves a tag by its id
+      tags:
+        - "tags"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Delete a tag by ID
+      description: Delete a tag by its id
+      tags:
+        - "tags"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tag deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    put:
+      summary: Update a tag by id
+      description: Update a tag by specifying all new information
+      tags:
+        - "tags"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Important
+              required:
+                - name
+      responses:
+        '200':
+          description: Tag updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    patch:
+      summary: Update a tag by id
+      description: Update a tag by specifying at least one field
+      tags:
+        - "tags"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Important
+      responses:
+        '200':
+          description: Tag updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /tasks:
+    get:
+      summary: Get all tasks
+      description: Retrieves a list of tasks
+      tags:
+        - "tasks"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Create a task
+      tags:
+        - "tasks"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad request, one or more fields are empty
+        '500':
+          description: Internal server error
+
+  /tasks/{id}:
+    get:
+      summary: Get a task by id
+      description: Retrieves a task by its id
+      tags:
+        - "tasks"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Delete a task by ID
+      description: Delete a task by its id
+      tags:
+        - "tasks"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Task deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    put:
+      summary: Update a task by id
+      description: Update a task by specifying all new information
+      tags:
+        - "tasks"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: task to do this month
+                status:
+                  type: boolean
+                  example: false
+                startDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-01T02:02:02Z
+                endDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-15T02:02:02Z
+                priority:
+                  type: integer
+                  example: 1
+                userId:
+                  type: integer
+                  example: 1
+                projectId:
+                  type: integer
+                  example: 1
+                tagId:
+                  type: integer
+                  example: 1
+              required:
+                - title
+                - status
+                - startDate
+                - endDate
+                - priority
+                - userId
+                - projectId
+                - tagId
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    patch:
+      summary: Update a task by id
+      description: Update a task by specifying at least one field
+      tags:
+        - "tasks"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: task to do this month
+                status:
+                  type: boolean
+                  example: false
+                startDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-01T02:02:02Z
+                endDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-15T02:02:02Z
+                priority:
+                  type: integer
+                  example: 1
+                userId:
+                  type: integer
+                  example: 1
+                projectId:
+                  type: integer
+                  example: 1
+                tagId:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /projects:
+    get:
+      summary: Get all projects
+      description: Retrieves a list of projects
+      tags:
+        - "projects"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Create a project
+      tags:
+        - "projects"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: RPM
+                description:
+                  type: string
+                  example: Project which is quite simple
+                status:
+                  type: boolean
+                  example: false
+                startDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-01T02:02:02Z
+                endDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-10T02:02:02Z
+                userId:
+                  type: integer
+                  example: 1
+              required:
+                - name
+                - description
+                - status
+                - startDate
+                - endDate
+                - userId
+      responses:
+        '200':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Bad request, one or more fields are empty
+        '500':
+          description: Internal server error
+
+  /projects/{id}:
+    get:
+      summary: Get a project by id
+      description: Retrieves a project by its id
+      tags:
+        - "projects"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Delete a project by ID
+      description: Delete a project by its id
+      tags:
+        - "projects"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Project deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    put:
+      summary: Update a project by id
+      description: Update a project by specifying all new information
+      tags:
+        - "projects"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: RPM
+                description:
+                  type: string
+                  example: Project which is quite simple
+                status:
+                  type: boolean
+                  example: false
+                startDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-01T02:02:02Z
+                endDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-10T02:02:02Z
+                userId:
+                  type: integer
+                  example: 1
+              required:
+                - name
+                - description
+                - status
+                - startDate
+                - endDate
+                - userId
+      responses:
+        '200':
+          description: Project updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+    patch:
+      summary: Update a project by id
+      description: Update a project by specifying at least one field
+      tags:
+        - "projects"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: RPM
+                description:
+                  type: string
+                  example: Project which is quite simple
+                status:
+                  type: boolean
+                  example: false
+                startDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-01T02:02:02Z
+                endDate:
+                  type: string
+                  format: date-time
+                  example: 2023-01-10T02:02:02Z
+      responses:
+        '200':
+          description: Project updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: HEI
+        email:
+          type: string
+          example: hei.school@gmail.com
+        password:
+          type: string
+          example: hei_password
+    Include:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 1
+        projectId:
+          type: integer
+          example: 1
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Important
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: taks to do this month
+        status:
+          type: boolean
+          example: false
+        startDate:
+          type: string
+          format: date-time
+          example: 2023-01-01 02:02:02
+        endDate:
+          type: string
+          format: date-time
+          example: 2023-01-01 02:02:02
+        priority:
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 1
+        projectId:
+          type: integer
+          example: 1
+        tagId:
+          type: integer
+          example: 1
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: RPM
+        description:
+          type: string
+          example: Project which is quite simple
+        status:
+          type: boolean
+          example: false
+        startDate:
+          type: string
+          format: date-time
+          example: 2023-01-01 02:02:02
+        endDate:
+          type: string
+          format: date-time
+          example: 2023-01-01 02:02:02
+        userId:
+          type: integer
+          example: 1
