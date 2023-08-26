@@ -1,10 +1,12 @@
 package com.ricka.prog2finalproject.service;
 
+import com.ricka.prog2finalproject.model.Tag;
 import com.ricka.prog2finalproject.repository.BasicImplementations.BasicRepositoryPostgresql;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpMethod;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,7 +35,21 @@ public class BasicService<T> {
             T result = this.repository.deleteById(id);
             return ResponseError.isNotFound(response,result);
         } catch (SQLException error) {
-            return ResponseError.InternalServerError(response, error);
+            if(error.getMessage().contains("is still referenced from table")){
+                StringBuilder errorMessage = new StringBuilder("Cannot delete the ");
+                errorMessage.append(error.getMessage().split("\"")[1])
+                        .append(" which has the id = ")
+                        .append(id).append(" because it's linked with ")
+                        .append( error.getMessage().split("\"")[5]);
+                try {
+                    response.sendError( HttpServletResponse.SC_BAD_REQUEST,errorMessage.toString());
+                } catch (IOException internalError) {
+                    return ResponseError.InternalServerError(response,internalError);
+                }
+                return null;
+            }else{
+                return ResponseError.InternalServerError(response, error);
+            }
         }
     }
 
