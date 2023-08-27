@@ -73,4 +73,14 @@ public class BasicService<T> {
             return ResponseError.InternalServerError(response, error);
         }
     }
+
+    public List<T> getByField(HttpServletResponse response,String fieldName, Object fieldValue){
+        try {
+            List<T> result = this.repository.getByField(fieldName,fieldValue);
+            return ResponseError.isNotFound(response,result);
+        } catch (SQLException error) {
+            ResponseError.InternalServerError(response,error);
+            return null;
+        }
+    }
 }

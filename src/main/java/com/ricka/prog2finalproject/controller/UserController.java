@@ -10,36 +10,45 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/users")
 public class UserController {
     private UserService userService;
-    @GetMapping
+    @GetMapping("/users")
     public List<User> getAllUsers(HttpServletResponse response){
         return this.userService.getAll(response);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public User getUserById(HttpServletResponse response, @PathVariable Integer id){
         return this.userService.getById(response,id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/users/{id}")
     public User deleteUserById(HttpServletResponse response, @PathVariable Integer id){
         return this.userService.deleteById(response,id);
     }
 
-    @PostMapping
+    @PostMapping("/users")
     public User createTag(HttpServletResponse response, @RequestBody  User user){
         return this.userService.createUser(response,user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/users/{id}")
     public User updaUser(HttpServletResponse response,@PathVariable Integer id,@RequestBody User user){
         return this.userService.updateUser(response,id,user);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/users/{id}")
     public User updaPartialUser(HttpServletResponse response,@PathVariable Integer id,@RequestBody User user){
         return this.userService.updatePartialUser(response,id,user);
+    }
+
+    @GetMapping("/tasks/{id}/users")
+    public List<User> getUserByTask(HttpServletResponse response,@PathVariable Integer id){
+        return this.userService.getByField(response,"taskId", id);
+    }
+
+    @GetMapping("/projects/{id}/users")
+    public List<User> getUserByProject(HttpServletResponse response,@PathVariable Integer id){
+        return this.userService.getByField(response,"projectId", id);
     }
 }

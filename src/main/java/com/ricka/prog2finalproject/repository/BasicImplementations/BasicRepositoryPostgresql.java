@@ -2,6 +2,7 @@ package com.ricka.prog2finalproject.repository.BasicImplementations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +77,24 @@ public class BasicRepositoryPostgresql<T> extends BasicPostgresqlConf<T> impleme
         }
         statement.setObject(++index, args[0]);
         return this.getResultByUpdateDb(connection,statement,args[0]);
+    }
+
+    @Override
+    public List<T> getByField(String fieldName, Object fieldValue) throws SQLException {
+        String sql = "SELECT * FROM " + this.getTableName() + " WHERE \"" + fieldName.toLowerCase() + "\" = ?";
+        PreparedStatement statement = this.connection.prepareStatement(sql);
+        statement.setObject(1,fieldValue);
+        ResultSet resultSet = statement.executeQuery();
+
+        List<T> result = new ArrayList<>();
+        while(resultSet.next()){
+            Object[] args = this.getObjectValues(
+                new ResultQuery(resultSet,
+                resultSet.getMetaData().getColumnCount()
+            ));
+
+            result.add(this.createInstance(args));
+        }
+        return result.isEmpty() ? null : result;
     }
 }

@@ -10,37 +10,41 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/includes")
 public class IncludeController {
     private IncludeService includeService;
 
-    @GetMapping
+    @GetMapping("includes")
     public List<Include> getAllIncludes(HttpServletResponse response){
         return this.includeService.getAll(response);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("includes/{id}")
     public Include getIncludeById (HttpServletResponse response, @PathVariable Integer id){
         return this.includeService.getById(response,id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("includes/{id}")
     public Include deleteIncludeById(HttpServletResponse response,@PathVariable Integer id){
         return this.includeService.deleteById(response,id);
     }
 
-    @PostMapping
+    @PostMapping("includes")
     public Include createInclude(HttpServletResponse response,@RequestBody Include include){
         return this.includeService.createInclude(response,include);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("includes/{id}")
     public Include updateInclude(HttpServletResponse response, @PathVariable Integer id, @RequestBody Include include){
         return this.includeService.updateInclude(response,id,include);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("includes/{id}")
     public Include updatePartialInclude(HttpServletResponse response, @PathVariable Integer id, @RequestBody Include include){
         return this.includeService.updatePartialInclude(response,id,include);
+    }
+
+    @GetMapping("users/{id}/includes")
+    public List<Include> getIncludeByUser(HttpServletResponse response, @PathVariable Integer id){
+        return this.includeService.getByField(response,"userId", id);
     }
 }

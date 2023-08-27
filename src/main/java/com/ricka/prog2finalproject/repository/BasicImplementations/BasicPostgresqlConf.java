@@ -70,9 +70,8 @@ public class BasicPostgresqlConf<T>{
         StringBuilder test = new StringBuilder();
         Object[] fields = Arrays.stream(this.type.getDeclaredFields()).map(Field::getName).toArray();
         for(int i = 1; i < fields.length; i++){
-            if(args[i] == null)
-                continue;
-            test.append(fields[i]).append(" = ?, ");
+            if(args[i] != null)
+                test.append(fields[i]).append(" = ?, ");
         }
         test = new StringBuilder(test.substring(0, test.length() - 2) + " WHERE id = ?");
         return test.toString();
