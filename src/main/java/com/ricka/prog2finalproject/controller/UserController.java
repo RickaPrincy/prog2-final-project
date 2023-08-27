@@ -41,14 +41,4 @@ public class UserController {
     public User updaPartialUser(HttpServletResponse response,@PathVariable Integer id,@RequestBody User user){
         return this.userService.updatePartialUser(response,id,user);
     }
-
-    @GetMapping("/tasks/{id}/users")
-    public List<User> getUserByTask(HttpServletResponse response,@PathVariable Integer id){
-        return this.userService.getByField(response,"taskId", id);
-    }
-
-    @GetMapping("/projects/{id}/users")
-    public List<User> getUserByProject(HttpServletResponse response,@PathVariable Integer id){
-        return this.userService.getByField(response,"projectId", id);
-    }
 }

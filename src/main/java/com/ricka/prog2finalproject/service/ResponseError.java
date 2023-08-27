@@ -28,7 +28,7 @@ public class ResponseError {
     }
 
     public static boolean isEveryNull(HttpServletResponse response, Object[] args){
-        for(int i =1; i< args.length;i++){
+        for(int i = 1; i < args.length; i++){
             if(args[i] != null)
                 return false;
         }
