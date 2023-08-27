@@ -366,6 +366,32 @@ paths:
           description: Not found
         '500':
           description: Internal server error
+  /users/{id}/includes:
+    get:
+      summary: Get all includes by user
+      description: Retrieves all includes by user id
+      tags:
+        - "includes"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Include'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
   /tags:
     get:
       summary: Get all tags
@@ -768,6 +794,32 @@ paths:
           description: Not found
         '500':
           description: Internal server error
+
+  /users/{id}/tasks:
+    get:
+      summary: Get all task by user
+      description: Retrieves all tasks by user id
+      tags:
+        - "tasks"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
   /projects:
     get:
       summary: Get all projects
@@ -986,6 +1038,32 @@ paths:
                 $ref: '#/components/schemas/Project'
         '400':
           description: Bad request, one or more fields are empty
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+  /users/{id}/projects:
+    get:
+      summary: Get all projects by user
+      description: Retrieves all projects by user id
+      tags:
+        - "projects"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
         '404':
           description: Not found
         '500':
